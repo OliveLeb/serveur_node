@@ -24,6 +24,8 @@ app.use("/parametres",routerParam);
 // Ecommerce20_Shop
 // H8a45q8OFfUuNfqj
 // https://immense-tundra-17548.herokuapp.com/
+// git commit -m"first commit"
+// git push heroku master
 
 const urlBDD = "mongodb+srv://ifocop_admin:azerty1234@cluster0-cthgq.mongodb.net/GuitarShop?retryWrites=true&w=majority";
 const optionConnexion = {
