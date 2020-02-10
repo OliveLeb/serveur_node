@@ -3,6 +3,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const helmet = require("helmet");
+const compression = require("compression");
 const routerArticles = require("./router/articles");
 const routerUsers = require("./router/users");
 const routerComments = require("./router/commentaires");
@@ -11,6 +13,8 @@ const routerParam = require("./router/parametres");
 const app = express();
 app.use(express.json());
 app.use(cors()); // autorise des sites internets a lui faire des requetes
+app.use(compression());
+app.use(helmet());
 
 app.use("/articles",routerArticles);
 app.use("/users",routerUsers);
