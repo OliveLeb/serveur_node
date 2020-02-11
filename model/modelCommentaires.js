@@ -13,8 +13,8 @@ const schemaComment = mongoose.Schema({
 //console.log(moment().utc(true).toISOString());
 const Comment = mongoose.model("commentaire", schemaComment);
 const schema = Joi.object({
-    contenu : Joi.string().min(3).max(5000).required(),
-    nomAuteur : Joi.string().min(5).max(255).required(),
+    contenu : Joi.string().min(3).max(1000).required(),
+    nomAuteur : Joi.string().min(5).max(50).required(),
     timestamps : Joi.date().timestamp()
 });
 
