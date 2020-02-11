@@ -8,23 +8,20 @@ const {Article, schema} = require("../model/modelArticle");
 const routerArticles = express.Router();
 
 
-
-
-
-
-
-
-/*router.get(); //all
-router.get(); // one
+/*
 router.post(); //create
+router.get(); //all
+router.get(); // one
 router.put(); // update
-router.delete(); // suppr*/
+router.delete(); // suppr
+*/
 
-
+//  POST (CREATE)
 routerArticles.post("/", async function(req,res){
-    
-    const body = req.body;
 
+    // récuperer json body
+    const body = req.body;
+    // comparer avec schema ../model/modelArticle.js                  
     const verif = schema.validate(body);
 
     // si not ok => message d'erreur + fin d'execution
@@ -39,17 +36,18 @@ routerArticles.post("/", async function(req,res){
     res.send(resultat);
 });
 
-
+//  GET ALL
 routerArticles.get("/", async function(req,res){
     const resultat = await Article.find()
     res.send(resultat);
 });
 
-
+//  GET ONE BY ID
 routerArticles.get("/:id", async function(req,res){
 
-    const id = req.params.id;   
-
+    // récupération de l'id entré dans l'url
+    const id = req.params.id;
+    // verif si ID existant  
     const verifID = mongoose.Types.ObjectId.isValid(id);
 
     if(!verifID){
@@ -59,43 +57,15 @@ routerArticles.get("/:id", async function(req,res){
 
     const resultat = await Article.find({_id:id});
 
-    
-
     if(resultat.length===0){
         res.status(404).send("Aucun enregistrement pour l'id "+id);
         return;
         }
         
-        res.send(resultat);
+    res.send(resultat);
 });
 
-
-routerArticles.delete("/:id", async function(req,res){
-
-    const id = req.params.id;
-
-    const verifID = mongoose.Types.ObjectId.isValid(id);
-   
-    if(!verifID){
-        res.status(400).send("L'id transmis n'est pas conforme.");
-        return;
-    }
-
-    const resultat = await Article.deleteOne({_id:id});
-    //res.send(resultat);
-
-    if(resultat.deletedCount === 0){
-        res.status(404).send("Il n'existe pas d'enregistrement avec l'id "+id+".");
-        return;
-    }
-
-    const reponse = await Article.find();
-    
-    res.send(reponse);
-    
-});
-
-
+// PUT BY ID (UPDATE)
 routerArticles.put("/:id", async function(req,res){
 
     const id = req.params.id;
@@ -131,6 +101,30 @@ routerArticles.put("/:id", async function(req,res){
     
     const reponse = await resultat.save();
     res.send(reponse);
+});
+
+
+//  DELETE BY ID
+routerArticles.delete("/:id", async function(req,res){ 
+
+    const id = req.params.id;
+    const verifID = mongoose.Types.ObjectId.isValid(id);
+   
+    if(!verifID){
+        res.status(400).send("L'id transmis n'est pas conforme.");
+        return;
+    }
+
+    const resultat = await Article.deleteOne({_id:id});
+
+    if(resultat.deletedCount === 0){
+        res.status(404).send("Il n'existe pas d'enregistrement avec l'id "+id+".");
+        return;
+    }
+
+    const reponse = await Article.find();
+    res.send(reponse);
+    
 });
 
 

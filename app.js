@@ -13,7 +13,7 @@ const routerParam = require("./router/parametres");
 
 const app = express();
 app.use(express.json());
-app.use(cors()); // autorise des sites internets a lui faire des requetes
+app.use(cors());
 app.use(compression());
 app.use(helmet());
 
@@ -43,7 +43,7 @@ mongoose.connect(urlBDD , optionConnexion)
             console.log(err);
         })
 
-//app.listen(6400);
+
 const port = process.env.PORT || 6400 ;
 
 app.listen(port , function(){ 

@@ -12,6 +12,8 @@ const schemaArticle = mongoose.Schema({
         prix : Number,
         published : Boolean
     },
+    // timestamps : affiche 2 champs -> createdAt et updatedAt de type Date.
+    // initialise les 2 lors du POST mais seulement maj de updatedAt lors du PUT.
     {
         timestamps:true
     }
