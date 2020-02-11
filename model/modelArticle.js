@@ -26,7 +26,7 @@ const schema = Joi.object({
     nomAuteur : Joi.string().min(3).max(50).required(),
     emailAuteur : Joi.string().email({ tlds: { allow: true } }).required(),
     categorie : Joi.array().items(Joi.string()).min(3).max(6).required(),
-    prix : Joi.number().integer().min(0).max(10000).required(),
+    prix : Joi.number().min(0).max(10000).required(),
     published : Joi.boolean().required(),
     timestamps : Joi.date().timestamp()
 });
