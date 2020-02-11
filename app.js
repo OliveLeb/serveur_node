@@ -29,7 +29,7 @@ app.use("/parametres",routerParam);
 // git push heroku master
 // git commit -a -m"autre commit"
 
-const urlBDD = "mongodb+srv://ifocop_admin:azerty1234@cluster0-cthgq.mongodb.net/GuitarShop?retryWrites=true&w=majority";
+const urlBDD = "mongodb+srv://Ecommerce20_Shop:H8a45q8OFfUuNfqj@cluster0-cthgq.mongodb.net/GuitarShop?retryWrites=true&w=majority";
 const optionConnexion = {
     useNewUrlParser : true,
     useUnifiedTopology : true
