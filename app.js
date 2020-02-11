@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const helmet = require("helmet");
 const compression = require("compression");
+
 const routerArticles = require("./router/articles");
 const routerUsers = require("./router/users");
 const routerComments = require("./router/commentaires");
@@ -26,6 +27,7 @@ app.use("/parametres",routerParam);
 // https://immense-tundra-17548.herokuapp.com/
 // git commit -m"first commit"
 // git push heroku master
+// git commit -a -m"autre commit"
 
 const urlBDD = "mongodb+srv://ifocop_admin:azerty1234@cluster0-cthgq.mongodb.net/GuitarShop?retryWrites=true&w=majority";
 const optionConnexion = {

@@ -7,17 +7,6 @@ const routerComments = express.Router();
 
 
 
-
-
-
-
-/*router.get(); //all
-router.get(); // one
-router.post(); //create
-router.put(); // update
-router.delete(); // suppr*/
-
-
 routerComments.post("/", async function(req,res){
     
     const body = req.body;

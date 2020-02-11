@@ -6,14 +6,6 @@ const routerParams = express.Router();
 
 
 
-
-/*router.get(); //all
-router.get(); // one
-router.post(); //create
-router.put(); // update
-router.delete(); // suppr*/
-
-
 routerParams.post("/", async function(req,res){
     
     const body = req.body;
