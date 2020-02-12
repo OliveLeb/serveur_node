@@ -92,7 +92,7 @@ routerArticles.put("/:id", async function(req,res){
 
     resultat.titre=body.titre;
     resultat.contenu=body.contenu;
-    resultat.dateCreation=body.dateCreation;
+    //resultat.dateCreation=body.dateCreation;
     resultat.nomAuteur=body.nomAuteur;
     resultat.emailAuteur=body.emailAuteur;
     resultat.categorie=body.categorie;

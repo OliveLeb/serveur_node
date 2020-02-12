@@ -12,14 +12,17 @@ const schemaUser = mongoose.Schema({
 });
 
 const User = mongoose.model("user", schemaUser);
-const schema = Joi.object({
-    nom : Joi.string().min(3).max(50).required(),
-    prenom : Joi.string().min(3).max(50).required(),
-    password : Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).min(8).max(25).required(),
-    email : Joi.string().email({ tlds: { allow: true } }).required(),
-    role : Joi.string().valid('admin','redac','user').required(),
-    estActif : Joi.boolean().required()
-});
+async function validationUser(profil){
+    const schema = Joi.object({
+        nom : Joi.string().min(3).max(50).required(),
+        prenom : Joi.string().min(3).max(50).required(),
+        password : Joi.string().min(8).max(25).required(),
+        email : Joi.string().email({ tlds: { allow: true } }).required(),
+        role : Joi.string().valid('admin','redac','user').required(),
+        estActif : Joi.boolean().required()
+    });
+    return schema.validateAsync(profil);
+}
 
-module.exports.schema = schema;
+module.exports.validationUser = validationUser;
 module.exports.User = User;

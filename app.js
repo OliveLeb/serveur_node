@@ -3,8 +3,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const helmet = require("helmet");
-const compression = require("compression");
+const helmet = require("helmet");   // middleware de sécurité Express
+const compression = require("compression"); // optimise les échanges avec le serveur en compressant les réponses du serveur
 
 const routerArticles = require("./router/articles");
 const routerUsers = require("./router/users");
