@@ -21,7 +21,7 @@ function validationUser(profil){
         lowerCase: 1,
         upperCase: 1,
         numeric: 1,
-        symbol: 1,
+        symbol: 0,
         requirementCount: 6
     };
     const schema = Joi.object({
