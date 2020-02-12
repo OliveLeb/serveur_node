@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Joi = require("@hapi/joi");
+const PasswordComplexity = require('joi-password-complexity');
 
 
 const schemaUser = mongoose.Schema({
@@ -12,11 +13,21 @@ const schemaUser = mongoose.Schema({
 });
 
 const User = mongoose.model("user", schemaUser);
-async function validationUser(profil){
+function validationUser(profil){
+
+    const complexityOptions = {
+        min: 8,
+        max: 30,
+        lowerCase: 1,
+        upperCase: 1,
+        numeric: 1,
+        symbol: 1,
+        requirementCount: 6
+    };
     const schema = Joi.object({
         nom : Joi.string().min(3).max(50).required(),
         prenom : Joi.string().min(3).max(50).required(),
-        password : Joi.string().min(8).max(25).required(),
+        password : PasswordComplexity(complexityOptions).required(),
         email : Joi.string().email({ tlds: { allow: true } }).required(),
         role : Joi.string().valid('admin','redac','user').required(),
         estActif : Joi.boolean().required()
