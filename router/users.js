@@ -17,7 +17,7 @@ router.post(); //create
 router.put(); // update
 router.delete(); // suppr*/
 
-
+// CREATE
 routerUsers.post("/", async function(req,res){
     
     const body = req.body;
@@ -49,10 +49,7 @@ routerUsers.post("/", async function(req,res){
                 });
             });
         });
-        // si ok => ajouter dans Bdd
-                    //const user = new User(body);
-                    //const resultat =  user.save(); // asynchrone => attendre que Mongo ecrive
-                    //res.send(resultat);
+        
     })
     
     // SI ERREUR LORS DE LA VERIFICATION
@@ -61,13 +58,13 @@ routerUsers.post("/", async function(req,res){
       });
 });
 
-
+// GET ALL
 routerUsers.get("/", async function(req,res){
     const resultat = await User.find()
     res.send(resultat);
 });
 
-
+// GET ONE
 routerUsers.get("/:id", async function(req,res){
 
     const id = req.params.id;   
@@ -87,7 +84,7 @@ routerUsers.get("/:id", async function(req,res){
     res.send(resultat);
 });
 
-
+// DELETE
 routerUsers.delete("/:id", async function(req,res){
 
     const id = req.params.id;
@@ -110,7 +107,7 @@ routerUsers.delete("/:id", async function(req,res){
     res.send(reponse);
 });
 
-
+// UPDATE
 routerUsers.put("/:id", async function(req,res){
 
     const id = req.params.id;

@@ -5,11 +5,10 @@ const {Param, schema} = require("../model/modelParametre");
 const routerParams = express.Router();
 
 
-
+// CREATE
 routerParams.post("/", async function(req,res){
     
     const body = req.body;
-
     const verif = schema.validate(body);
 
     // si not ok => message d'erreur + fin d'execution
@@ -24,17 +23,16 @@ routerParams.post("/", async function(req,res){
     res.send(resultat);
 });
 
-
+// GET ALL
 routerParams.get("/", async function(req,res){
     const resultat = await Param.find()
     res.send(resultat);
 });
 
-
+// GET ONE
 routerParams.get("/:id", async function(req,res){
 
     const id = req.params.id;   
-
     const verifID = mongoose.Types.ObjectId.isValid(id);
 
     if(!verifID){
@@ -44,21 +42,18 @@ routerParams.get("/:id", async function(req,res){
 
     const resultat = await Param.find({_id:id});
 
-    
-
     if(resultat.length===0){
         res.status(404).send("Aucun enregistrement pour l'id "+id);
         return;
         }
         
-        res.send(resultat);
+    res.send(resultat);
 });
 
-
+// DELETE
 routerParams.delete("/:id", async function(req,res){
 
     const id = req.params.id;
-
     const verifID = mongoose.Types.ObjectId.isValid(id);
    
     if(!verifID){
@@ -75,12 +70,11 @@ routerParams.delete("/:id", async function(req,res){
     }
 
     const reponse = await Param.find();
-    
     res.send(reponse);
     
 });
 
-
+// UPDATE
 routerParams.put("/:id", async function(req,res){
 
     const id = req.params.id;
@@ -106,7 +100,6 @@ routerParams.put("/:id", async function(req,res){
     }
 
     resultat.param=body.param;
-    
     const reponse = await resultat.save();
     res.send(reponse);
 });

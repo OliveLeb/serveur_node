@@ -37,7 +37,7 @@ const optionConnexion = {
 
 mongoose.connect(urlBDD , optionConnexion)
         .then(function(){
-            console.log("connexion à la base de donnée est réussie");
+            console.log("Connexion à la base de donnée est réussie");
         })
         .catch(function(err){
             console.log(err);
@@ -47,6 +47,6 @@ mongoose.connect(urlBDD , optionConnexion)
 const port = process.env.PORT || 6400 ;
 
 app.listen(port , function(){ 
-    console.log("serveur lancé sur le port " + port);
+    console.log("Serveur lancé sur le port " + port);
 });
 

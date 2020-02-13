@@ -6,11 +6,10 @@ const routerComments = express.Router();
 
 
 
-
+// CREATE
 routerComments.post("/", async function(req,res){
     
     const body = req.body;
-
     const verif = schema.validate(body);
 
     // si not ok => message d'erreur + fin d'execution
@@ -25,17 +24,16 @@ routerComments.post("/", async function(req,res){
     res.send(resultat);
 });
 
-
+// GET ALL
 routerComments.get("/", async function(req,res){
     const resultat = await Comment.find()
     res.send(resultat);
 });
 
-
+// GET ONE
 routerComments.get("/:id", async function(req,res){
 
     const id = req.params.id;   
-
     const verifID = mongoose.Types.ObjectId.isValid(id);
 
     if(!verifID){
@@ -45,8 +43,6 @@ routerComments.get("/:id", async function(req,res){
 
     const resultat = await Comment.find({_id:id});
 
-    
-
     if(resultat.length===0){
         res.status(404).send("Aucun enregistrement pour l'id "+id);
         return;
@@ -55,11 +51,10 @@ routerComments.get("/:id", async function(req,res){
         res.send(resultat);
 });
 
-
+// DELETE
 routerComments.delete("/:id", async function(req,res){
 
     const id = req.params.id;
-
     const verifID = mongoose.Types.ObjectId.isValid(id);
    
     if(!verifID){
@@ -76,12 +71,11 @@ routerComments.delete("/:id", async function(req,res){
     }
 
     const reponse = await Comment.find();
-    
     res.send(reponse);
     
 });
 
-
+// UPDATE
 routerComments.put("/:id", async function(req,res){
 
     const id = req.params.id;
@@ -107,7 +101,6 @@ routerComments.put("/:id", async function(req,res){
     }
 
     resultat.contenu=body.contenu;
-    resultat.dateCreation=body.dateCreation;
     resultat.nomAuteur=body.nomAuteur;
     
     const reponse = await resultat.save();

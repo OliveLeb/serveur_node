@@ -15,7 +15,8 @@ const schemaUser = mongoose.Schema({
 const User = mongoose.model("user", schemaUser);
 function validationUser(profil){
 
-    const complexityOptions = {
+    // Joi pour le password
+    const complexityOptions = { 
         min: 8,
         max: 30,
         lowerCase: 1,
