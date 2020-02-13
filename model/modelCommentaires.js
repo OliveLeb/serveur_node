@@ -10,7 +10,7 @@ const schemaComment = mongoose.Schema({
         timestamps:  true
     }
 );
-//console.log(moment().utc(true).toISOString());
+
 const Comment = mongoose.model("commentaire", schemaComment);
 const schema = Joi.object({
     contenu : Joi.string().min(3).max(1000).required(),

@@ -62,7 +62,6 @@ routerParams.delete("/:id", async function(req,res){
     }
 
     const resultat = await Param.deleteOne({_id:id});
-    //res.send(resultat);
 
     if(resultat.deletedCount === 0){
         res.status(404).send("Il n'existe pas d'enregistrement avec l'id "+id+".");
