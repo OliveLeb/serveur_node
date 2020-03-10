@@ -1,9 +1,7 @@
-
-
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const helmet = require("helmet");   // middleware de sécurité Express
+const helmet = require("helmet"); // middleware de sécurité Express
 const compression = require("compression"); // optimise les échanges avec le serveur en compressant les réponses du serveur
 
 const routerArticles = require("./router/articles");
@@ -17,10 +15,10 @@ app.use(cors());
 app.use(compression());
 app.use(helmet());
 
-app.use("/articles",routerArticles);
-app.use("/users",routerUsers);
-app.use("/commentaires",routerComments);
-app.use("/parametres",routerParam);
+app.use("/articles", routerArticles);
+app.use("/users", routerUsers);
+app.use("/commentaires", routerComments);
+app.use("/parametres", routerParam);
 
 // Ecommerce20_Shop
 // H8a45q8OFfUuNfqj
@@ -29,24 +27,24 @@ app.use("/parametres",routerParam);
 // git push heroku master
 // git commit -a -m"autre commit"
 
-const urlBDD = "mongodb+srv://Ecommerce20_Shop:H8a45q8OFfUuNfqj@cluster0-cthgq.mongodb.net/GuitarShop?retryWrites=true&w=majority";
+const urlBDD =
+  "mongodb+srv://Ecommerce20_Shop:H8a45q8OFfUuNfqj@cluster0-cthgq.mongodb.net/GuitarShop?retryWrites=true&w=majority";
 const optionConnexion = {
-    useNewUrlParser : true,
-    useUnifiedTopology : true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 };
 
-mongoose.connect(urlBDD , optionConnexion)
-        .then(function(){
-            console.log("Connexion à la base de donnée est réussie");
-        })
-        .catch(function(err){
-            console.log(err);
-        })
+mongoose
+  .connect(urlBDD, optionConnexion)
+  .then(function() {
+    console.log("Connexion à la base de donnée est réussie");
+  })
+  .catch(function(err) {
+    console.log(err);
+  });
 
+const port = process.env.PORT || 6400;
 
-const port = process.env.PORT || 6400 ;
-
-app.listen(port , function(){ 
-    console.log("Serveur lancé sur le port " + port);
+app.listen(port, function() {
+  console.log("Serveur lancé sur le port " + port);
 });
-

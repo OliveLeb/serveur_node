@@ -1,34 +1,55 @@
+const mongoose = require('mongoose');
+const Joi = require('@hapi/joi');
 
-
-const mongoose = require("mongoose");
-const Joi = require("@hapi/joi");
-
-const schemaArticle = mongoose.Schema({
-        titre : String,
-        contenu : String,
-        nomAuteur : String,
-        emailAuteur : String,
-        categorie :[String],
-        prix : Number,
-        published : Boolean,
-    },
-    // timestamps : affiche 2 champs -> createdAt et updatedAt de type Date.
-    // initialise les 2 lors du POST mais seulement maj de updatedAt lors du PUT.
-    {
-        timestamps:true
-    }
+const schemaArticle = mongoose.Schema(
+  {
+    titre: String,
+    contenu: String,
+    nomAuteur: String,
+    emailAuteur: String,
+    categorie: [String],
+    prix: Number,
+    img: String,
+    published: Boolean
+  },
+  // timestamps : affiche 2 champs -> createdAt et updatedAt de type Date.
+  // initialise les 2 lors du POST mais seulement maj de updatedAt lors du PUT.
+  {
+    timestamps: true
+  }
 );
 
-const Article = mongoose.model("article", schemaArticle);
+const Article = mongoose.model('article', schemaArticle);
 const schema = Joi.object({
-    titre : Joi.string().min(3).max(30).required(),
-    contenu : Joi.string().min(3).max(3000).required(),
-    nomAuteur : Joi.string().min(3).max(50).required(),
-    emailAuteur : Joi.string().email({ tlds: { allow: true } }).required(),
-    categorie : Joi.array().items(Joi.string()).min(3).max(6).required(),
-    prix : Joi.number().min(0).max(10000).required(),
-    published : Joi.boolean().required(),
-    timestamps : Joi.date().timestamp()
+  titre: Joi.string()
+    .min(3)
+    .max(30)
+    .required(),
+  contenu: Joi.string()
+    .min(3)
+    .max(3000)
+    .required(),
+  nomAuteur: Joi.string()
+    .min(3)
+    .max(50)
+    .required(),
+  emailAuteur: Joi.string()
+    .email({ tlds: { allow: true } })
+    .required(),
+  categorie: Joi.array()
+    .items(Joi.string())
+    .min(3)
+    .max(6)
+    .required(),
+  prix: Joi.number()
+    .min(0)
+    .max(10000)
+    .required(),
+  img: Joi.string()
+    .min(3)
+    .max(100),
+  published: Joi.boolean().required(),
+  timestamps: Joi.date().timestamp()
 });
 
 module.exports.schema = schema;
