@@ -5,6 +5,7 @@ const PasswordComplexity = require('joi-password-complexity');
 const schemaUser = mongoose.Schema({
   nom: String,
   prenom: String,
+  identifiant: String,
   password: String,
   email: String,
   role: String,
@@ -19,6 +20,7 @@ schemaUser.methods.generateAuthenToken = function() {
   return token;
 };
 const User = mongoose.model('user', schemaUser);
+
 function validationUser(profil) {
   // Joi pour le password
   const complexityOptions = {
@@ -39,6 +41,10 @@ function validationUser(profil) {
       .min(3)
       .max(50)
       .required(),
+    identifiant: Joi.string()
+      .min(5)
+      .max(50)
+      .required(),
     password: PasswordComplexity(complexityOptions).required(),
     email: Joi.string()
       .email({ tlds: { allow: true } })
@@ -51,5 +57,28 @@ function validationUser(profil) {
   return schema.validateAsync(profil);
 }
 
+const validationConnexion = async data => {
+  const complexityOptions = {
+    min: 8,
+    max: 30,
+    lowerCase: 1,
+    upperCase: 1,
+    numeric: 1,
+    symbol: 0,
+    requirementCount: 6
+  };
+  const schema = Joi.object({
+    password: PasswordComplexity(complexityOptions).required(),
+    email: Joi.string()
+      .email({ tlds: { allow: true } })
+      .required(),
+    identifiant: Joi.string()
+      .min(5)
+      .max(50)
+      .required()
+  });
+  return await schema.validateAsync(data);
+};
 module.exports.validationUser = validationUser;
+module.exports.validationConnexion = validationConnexion;
 module.exports.User = User;

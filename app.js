@@ -1,34 +1,37 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const helmet = require("helmet"); // middleware de sécurité Express
-const compression = require("compression"); // optimise les échanges avec le serveur en compressant les réponses du serveur
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const helmet = require('helmet'); // middleware de sécurité Express
+const compression = require('compression'); // optimise les échanges avec le serveur en compressant les réponses du serveur
+const dotenv = require('dotenv');
+dotenv.config();
 
-const routerArticles = require("./router/articles");
-const routerUsers = require("./router/users");
-const routerComments = require("./router/commentaires");
-const routerParam = require("./router/parametres");
+const routerConnexion = require('./router/connexion');
+const routerArticles = require('./router/articles');
+const routerUsers = require('./router/users');
+const routerComments = require('./router/commentaires');
+const routerParam = require('./router/parametres');
 
+// Middleware
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(compression());
 app.use(helmet());
 
-app.use("/articles", routerArticles);
-app.use("/users", routerUsers);
-app.use("/commentaires", routerComments);
-app.use("/parametres", routerParam);
+// import routers
+app.use('/connexion', routerConnexion);
+app.use('/articles', routerArticles);
+app.use('/users', routerUsers);
+app.use('/commentaires', routerComments);
+app.use('/parametres', routerParam);
 
-// Ecommerce20_Shop
-// H8a45q8OFfUuNfqj
 // https://immense-tundra-17548.herokuapp.com/
 // git commit -m"first commit"
 // git push heroku master
 // git commit -a -m"autre commit"
 
-const urlBDD =
-  "mongodb+srv://Ecommerce20_Shop:H8a45q8OFfUuNfqj@cluster0-cthgq.mongodb.net/GuitarShop?retryWrites=true&w=majority";
+const urlBDD = process.env.DB_CONNECT;
 const optionConnexion = {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -37,7 +40,7 @@ const optionConnexion = {
 mongoose
   .connect(urlBDD, optionConnexion)
   .then(function() {
-    console.log("Connexion à la base de donnée est réussie");
+    console.log('Connexion à la base de donnée est réussie');
   })
   .catch(function(err) {
     console.log(err);
@@ -46,5 +49,5 @@ mongoose
 const port = process.env.PORT || 6400;
 
 app.listen(port, function() {
-  console.log("Serveur lancé sur le port " + port);
+  console.log('Serveur lancé sur le port ' + port);
 });
