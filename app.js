@@ -30,7 +30,10 @@ app.use('/parametres', routerParam);
 // git commit -m"first commit"
 // git push heroku master
 // git commit -a -m"autre commit"
-
+if (!process.env.TOKEN_SECRET) {
+  console.error('FATAL ERROR TOKEN_SECRET non définie');
+  process.exit(1);
+}
 const urlBDD = process.env.DB_CONNECT;
 const optionConnexion = {
   useNewUrlParser: true,

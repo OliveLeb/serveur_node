@@ -1,7 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const _ = require('lodash');
 const { User, validationUser } = require('../model/modelUser');
+const verify = require('../middleware/autorisation');
+const admin = require('../middleware/role'); /*
+const redac = require('../middleware/role');
+const visitor = require('../middleware/role');*/
 
 const routerUsers = express.Router();
 
@@ -32,13 +37,23 @@ routerUsers.post('/', async function(req, res) {
             const user = new User({
               nom: req.body.nom,
               prenom: req.body.prenom,
+              identifiant: req.body.identifiant,
               password: hashedPassword,
               email: req.body.email,
               role: req.body.role,
               estActif: req.body.estActif
-            });
-            user.save();
-            res.send(user);
+            }); /*
+            user.save().then(() => {
+              const token = user.generateAuthenToken();
+
+              const result = _.pick(user, ['_id', 'role']);
+              res
+                .header('auth-token', token)
+                .header('access-control-expose-headers', 'auth-token')
+                .send(result);
+            });*/
+
+            //res.send(user);
           });
         });
       });
@@ -51,13 +66,13 @@ routerUsers.post('/', async function(req, res) {
 });
 
 // GET ALL
-routerUsers.get('/', async function(req, res) {
+routerUsers.get('/', [verify, admin], async function(req, res) {
   const resultat = await User.find();
   res.send(resultat);
 });
 
 // GET ONE
-routerUsers.get('/:id', async function(req, res) {
+routerUsers.get('/:id', verify, async function(req, res) {
   const id = req.params.id;
   const verifID = mongoose.Types.ObjectId.isValid(id);
 
@@ -76,7 +91,7 @@ routerUsers.get('/:id', async function(req, res) {
 });
 
 // DELETE
-routerUsers.delete('/:id', async function(req, res) {
+routerUsers.delete('/:id', verify, async function(req, res) {
   const id = req.params.id;
   const verifID = mongoose.Types.ObjectId.isValid(id);
 
@@ -99,7 +114,7 @@ routerUsers.delete('/:id', async function(req, res) {
 });
 
 // UPDATE
-routerUsers.put('/:id', async function(req, res) {
+routerUsers.put('/:id', verify, async function(req, res) {
   const id = req.params.id;
   const verifID = mongoose.Types.ObjectId.isValid(id);
 
@@ -124,6 +139,7 @@ routerUsers.put('/:id', async function(req, res) {
 
   resultat.nom = body.nom;
   resultat.prenom = body.prenom;
+  resultat.identifiant = body.identifiant;
   resultat.email = body.email;
   resultat.password = body.password;
   resultat.role = body.role;

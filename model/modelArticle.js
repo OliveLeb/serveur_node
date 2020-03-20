@@ -46,8 +46,9 @@ const schema = Joi.object({
     .max(10000)
     .required(),
   img: Joi.string()
-    .min(3)
-    .max(100),
+    .min(5)
+    .max(100)
+    .required(),
   published: Joi.boolean().required(),
   timestamps: Joi.date().timestamp()
 });

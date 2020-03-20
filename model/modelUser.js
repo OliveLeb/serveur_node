@@ -11,14 +11,7 @@ const schemaUser = mongoose.Schema({
   role: String,
   estActif: Boolean
 });
-schemaUser.methods.generateAuthenToken = function() {
-  const payload = {
-    _id: this.id,
-    isAdmin: this.isAdmin
-  };
-  const token = jwt.sign(payload, config.get('jwtCleSecrete'));
-  return token;
-};
+
 const User = mongoose.model('user', schemaUser);
 
 function validationUser(profil) {
@@ -50,7 +43,7 @@ function validationUser(profil) {
       .email({ tlds: { allow: true } })
       .required(),
     role: Joi.string()
-      .valid('admin', 'redac', 'user')
+      .valid('admin', 'redac', 'user', 'visitor')
       .required(),
     estActif: Joi.boolean().required()
   });
@@ -69,13 +62,11 @@ const validationConnexion = async data => {
   };
   const schema = Joi.object({
     password: PasswordComplexity(complexityOptions).required(),
-    email: Joi.string()
-      .email({ tlds: { allow: true } })
-      .required(),
+    email: Joi.string().email({ tlds: { allow: true } }),
     identifiant: Joi.string()
       .min(5)
-      .max(50)
-      .required()
+      .max(50),
+    role: Joi.string().valid('admin', 'redac', 'user', 'visitor')
   });
   return await schema.validateAsync(data);
 };
