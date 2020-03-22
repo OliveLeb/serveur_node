@@ -66,13 +66,13 @@ routerUsers.post('/', async function(req, res) {
 });
 
 // GET ALL
-routerUsers.get('/', [verify, admin], async function(req, res) {
+routerUsers.get('/', async function(req, res) {
   const resultat = await User.find();
   res.send(resultat);
 });
 
 // GET ONE
-routerUsers.get('/:id', verify, async function(req, res) {
+routerUsers.get('/:id', async function(req, res) {
   const id = req.params.id;
   const verifID = mongoose.Types.ObjectId.isValid(id);
 
@@ -91,7 +91,7 @@ routerUsers.get('/:id', verify, async function(req, res) {
 });
 
 // DELETE
-routerUsers.delete('/:id', verify, async function(req, res) {
+routerUsers.delete('/:id', async function(req, res) {
   const id = req.params.id;
   const verifID = mongoose.Types.ObjectId.isValid(id);
 
@@ -114,7 +114,7 @@ routerUsers.delete('/:id', verify, async function(req, res) {
 });
 
 // UPDATE
-routerUsers.put('/:id', verify, async function(req, res) {
+routerUsers.put('/:id', async function(req, res) {
   const id = req.params.id;
   const verifID = mongoose.Types.ObjectId.isValid(id);
 

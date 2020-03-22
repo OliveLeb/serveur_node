@@ -7,7 +7,7 @@ const schemaArticle = mongoose.Schema(
     contenu: String,
     nomAuteur: String,
     emailAuteur: String,
-    categorie: [String],
+    categorie: [Object],
     prix: Number,
     img: String,
     published: Boolean
@@ -37,7 +37,7 @@ const schema = Joi.object({
     .email({ tlds: { allow: true } })
     .required(),
   categorie: Joi.array()
-    .items(Joi.string())
+    .items(Joi.object())
     .min(3)
     .max(6)
     .required(),

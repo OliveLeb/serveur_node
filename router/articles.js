@@ -16,11 +16,8 @@ router.delete(); // suppr
 */
 
 //  POST (CREATE)
-routerArticles.post('/', verify, upload.single('image'), async function(
-  req,
-  res
-) {
-  const img = request.file.name;
+routerArticles.post('/', async function(req, res) {
+  //const img = request.file.name;
   // récuperer json body
   const body = req.body;
   // comparer avec schema ../model/modelArticle.js
@@ -67,7 +64,7 @@ routerArticles.get('/:id', async function(req, res) {
 });
 
 // PUT BY ID (UPDATE)
-routerArticles.put('/:id', verify, async function(req, res) {
+routerArticles.put('/:id', async function(req, res) {
   const id = req.params.id;
   const verifID = mongoose.Types.ObjectId.isValid(id);
 
@@ -104,7 +101,7 @@ routerArticles.put('/:id', verify, async function(req, res) {
 });
 
 //  DELETE BY ID
-routerArticles.delete('/:id', verify, async function(req, res) {
+routerArticles.delete('/:id', async function(req, res) {
   const id = req.params.id;
   const verifID = mongoose.Types.ObjectId.isValid(id);
 
