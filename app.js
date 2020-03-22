@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-//const cors = require('cors');
+const cors = require('cors');
 const helmet = require('helmet'); // middleware de sécurité Express
 const compression = require('compression'); // optimise les échanges avec le serveur en compressant les réponses du serveur
 const dotenv = require('dotenv');
@@ -15,7 +15,7 @@ const routerParam = require('./router/parametres');
 // Middleware
 const app = express();
 app.use(express.json());
-//app.use(cors());
+app.use(cors());
 app.use(compression());
 app.use(helmet());
 
