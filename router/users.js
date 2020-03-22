@@ -3,8 +3,9 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const { User, validationUser } = require('../model/modelUser');
+/*
 const verify = require('../middleware/autorisation');
-const admin = require('../middleware/role'); /*
+const admin = require('../middleware/role'); 
 const redac = require('../middleware/role');
 const visitor = require('../middleware/role');*/
 
