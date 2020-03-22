@@ -38,7 +38,7 @@ const schema = Joi.object({
     .required(),
   categorie: Joi.array()
     .items(Joi.object())
-    .min(3)
+    .min(2)
     .max(6)
     .required(),
   prix: Joi.number()
