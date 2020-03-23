@@ -32,18 +32,22 @@ routerUsers.post('/', async function(req, res) {
             .status(400)
             .send('Il existe déjà un compte avec cet email.');
 
-        // CRYPTAGE DU PASSWORD DANS LA BDD
-        bcrypt.genSalt(10).then(salt => {
-          bcrypt.hash(req.body.password, salt).then(hashedPassword => {
-            const user = new User({
-              nom: req.body.nom,
-              prenom: req.body.prenom,
-              identifiant: req.body.identifiant,
-              password: hashedPassword,
-              email: req.body.email,
-              role: req.body.role,
-              estActif: req.body.estActif
-            }); /*
+        User.find({ identifiant: req.body.identifiant }).then(resultat => {
+          if (resultat.length !== 0)
+            return res.status(400).send('Identifiant déjè existant.');
+
+          // CRYPTAGE DU PASSWORD DANS LA BDD
+          bcrypt.genSalt(10).then(salt => {
+            bcrypt.hash(req.body.password, salt).then(hashedPassword => {
+              const user = new User({
+                nom: req.body.nom,
+                prenom: req.body.prenom,
+                identifiant: req.body.identifiant,
+                password: hashedPassword,
+                email: req.body.email,
+                role: req.body.role,
+                estActif: req.body.estActif
+              }); /*
             user.save().then(() => {
               const token = user.generateAuthenToken();
 
@@ -53,8 +57,9 @@ routerUsers.post('/', async function(req, res) {
                 .header('access-control-expose-headers', 'auth-token')
                 .send(result);
             });*/
-            user.save();
-            res.send(user);
+              user.save();
+              res.send(user);
+            });
           });
         });
       });

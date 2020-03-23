@@ -35,7 +35,7 @@ function validationUser(profil) {
       .max(50)
       .required(),
     identifiant: Joi.string()
-      .min(5)
+      .min(3)
       .max(50)
       .required(),
     password: PasswordComplexity(complexityOptions).required(),
