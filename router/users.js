@@ -53,8 +53,8 @@ routerUsers.post('/', async function(req, res) {
                 .header('access-control-expose-headers', 'auth-token')
                 .send(result);
             });*/
-
-            //res.send(user);
+            user.save();
+            res.send(user);
           });
         });
       });
