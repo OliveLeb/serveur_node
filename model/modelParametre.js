@@ -2,40 +2,30 @@ const mongoose = require('mongoose');
 const Joi = require('@hapi/joi');
 
 const schemaParam = mongoose.Schema({
-  information: Object
+  nbItem: Number,
+  baliseSEO: String,
+  texteIntro: String,
+  titreAccueil: String
 });
 
 const Param = mongoose.model('parametre', schemaParam);
 const schema = Joi.object({
-  //Joi.array()
-  information:
-    // .items(
-    Joi.object()
-      .keys({
-        nbItem: Joi.number()
-          .min(1)
-          .max(50)
-          .required(),
-        baliseSEO: Joi.string()
-          .min(10)
-          .max(160)
-          .required(),
-        texteIntro: Joi.string()
-          .min(20)
-          .max(300)
-          .required(),
-        titreAccueil: Joi.string()
-          .min(5)
-          .max(50)
-          .required()
-      })
-      .min(1)
-      .max(10)
-      .required()
-  /*)
+  nbItem: Joi.number()
     .min(1)
-    .max(10)
-    .required()*/
+    .max(50)
+    .required(),
+  baliseSEO: Joi.string()
+    .min(10)
+    .max(160)
+    .required(),
+  texteIntro: Joi.string()
+    .min(20)
+    .max(300)
+    .required(),
+  titreAccueil: Joi.string()
+    .min(5)
+    .max(50)
+    .required()
 });
 
 module.exports.schema = schema;
