@@ -12,19 +12,19 @@ const schema = Joi.object({
     // .items(
     Joi.object()
       .keys({
-        nbItem: Joi.number
+        nbItem: Joi.number()
           .min(1)
           .max(50)
           .required(),
-        baliseSEO: Joi.string
+        baliseSEO: Joi.string()
           .min(10)
           .max(160)
           .required(),
-        texteIntro: Joi.string
+        texteIntro: Joi.string()
           .min(20)
           .max(300)
           .required(),
-        titreAccueil: Joi.string
+        titreAccueil: Joi.string()
           .min(5)
           .max(50)
           .required()
