@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const { User, validationUser } = require('../model/modelUser');
 const verify = require('../middleware/autorisation');
-const { admin, redac, visitor } = require('../middleware/role');
+const { admin, visitor } = require('../middleware/role');
 
 const routerUsers = express.Router();
 

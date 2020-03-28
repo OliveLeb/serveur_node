@@ -28,9 +28,9 @@ function all(req, res, next) {
     req.user.role != 'redac' &&
     req.user.role != 'admin' &&
     req.user.role != 'user'
-  ) {
+  )
     return res.status(403).send({ msg: 'Connexion non authorisée' });
-  }
+  next();
 }
 
 module.exports.admin = admin;
