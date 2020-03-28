@@ -24,7 +24,7 @@ const schema = Joi.object({
     .required(),
   titreAccueil: Joi.string()
     .min(5)
-    .max(50)
+    .max(100)
     .required()
 });
 
