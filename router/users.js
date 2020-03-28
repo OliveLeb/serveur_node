@@ -3,11 +3,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const { User, validationUser } = require('../model/modelUser');
-/*
 const verify = require('../middleware/autorisation');
-const admin = require('../middleware/role'); 
-const redac = require('../middleware/role');
-const visitor = require('../middleware/role');*/
+const { admin, redac, visitor } = require('../middleware/role');
 
 const routerUsers = express.Router();
 
@@ -18,7 +15,7 @@ router.put(); // update
 router.delete(); // suppr*/
 
 // CREATE
-routerUsers.post('/', async function(req, res) {
+routerUsers.post('/', [verify, admin], async function(req, res) {
   const body = req.body;
   const verif = validationUser(body); // COMPARAISON BODY ET SCHEMA
 
@@ -72,13 +69,13 @@ routerUsers.post('/', async function(req, res) {
 });
 
 // GET ALL
-routerUsers.get('/', async function(req, res) {
+routerUsers.get('/', [verify, visitor], async function(req, res) {
   const resultat = await User.find();
   res.send(resultat);
 });
 
 // GET ONE
-routerUsers.get('/:id', async function(req, res) {
+routerUsers.get('/:id', [verify, visitor], async function(req, res) {
   const id = req.params.id;
   const verifID = mongoose.Types.ObjectId.isValid(id);
 
@@ -97,7 +94,7 @@ routerUsers.get('/:id', async function(req, res) {
 });
 
 // DELETE
-routerUsers.delete('/:id', async function(req, res) {
+routerUsers.delete('/:id', [verify, admin], async function(req, res) {
   const id = req.params.id;
   const verifID = mongoose.Types.ObjectId.isValid(id);
 
@@ -120,7 +117,7 @@ routerUsers.delete('/:id', async function(req, res) {
 });
 
 // UPDATE
-routerUsers.put('/:id', async function(req, res) {
+routerUsers.put('/:id', [verify, admin], async function(req, res) {
   const id = req.params.id;
   const verifID = mongoose.Types.ObjectId.isValid(id);
 

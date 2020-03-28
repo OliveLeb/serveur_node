@@ -6,7 +6,7 @@ const compression = require('compression'); // optimise les échanges avec le se
 const dotenv = require('dotenv');
 dotenv.config();
 
-//const routerConnexion = require('./router/connexion');
+const routerConnexion = require('./router/connexion');
 const routerArticles = require('./router/articles');
 const routerUsers = require('./router/users');
 const routerComments = require('./router/commentaires');
@@ -20,7 +20,7 @@ app.use(compression());
 app.use(helmet());
 
 // import routers
-//app.use('/connexion', routerConnexion);
+app.use('/connexion', routerConnexion);
 app.use('/articles', routerArticles);
 app.use('/users', routerUsers);
 app.use('/commentaires', routerComments);

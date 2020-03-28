@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { Article, schema } = require('../model/modelArticle');
-//const verify = require('../middleware/autorisation');
-//const { admin, redac, visitor } = require('../middleware/role');
+const verify = require('../middleware/autorisation');
+const { admin, redac, visitor } = require('../middleware/role');
 //const multer = require('multer');
 
 const routerArticles = express.Router();
@@ -16,7 +16,7 @@ router.delete(); // suppr
 */
 
 //  POST (CREATE)
-routerArticles.post('/', async function(req, res) {
+routerArticles.post('/', [verify, redac], async function(req, res) {
   //const img = request.file.name;
   // récuperer json body
   const body = req.body;
@@ -64,7 +64,7 @@ routerArticles.get('/:id', async function(req, res) {
 });
 
 // PUT BY ID (UPDATE)
-routerArticles.put('/:id', async function(req, res) {
+routerArticles.put('/:id', [verify, redac], async function(req, res) {
   const id = req.params.id;
   const verifID = mongoose.Types.ObjectId.isValid(id);
 
@@ -101,7 +101,7 @@ routerArticles.put('/:id', async function(req, res) {
 });
 
 //  DELETE BY ID
-routerArticles.delete('/:id', async function(req, res) {
+routerArticles.delete('/:id', [verify, redac], async function(req, res) {
   const id = req.params.id;
   const verifID = mongoose.Types.ObjectId.isValid(id);
 

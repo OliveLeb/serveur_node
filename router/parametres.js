@@ -1,11 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { Param, schema } = require('../model/modelParametre');
+const verify = require('../middleware/autorisation');
+const { redac } = require('../middleware/role');
 
 const routerParams = express.Router();
 
 // CREATE
-routerParams.post('/', async function(req, res) {
+routerParams.post('/', [verify, redac], async function(req, res) {
   const body = req.body;
   const verif = schema.validate(body);
 
@@ -48,7 +50,7 @@ routerParams.get('/:id', async function(req, res) {
 });
 
 // DELETE
-routerParams.delete('/:id', async function(req, res) {
+routerParams.delete('/:id', [verify, redac], async function(req, res) {
   const id = req.params.id;
   const verifID = mongoose.Types.ObjectId.isValid(id);
 
@@ -71,7 +73,7 @@ routerParams.delete('/:id', async function(req, res) {
 });
 
 // UPDATE
-routerParams.put('/:id', async function(req, res) {
+routerParams.put('/:id', [verify, redac], async function(req, res) {
   const id = req.params.id;
   const verifID = mongoose.Types.ObjectId.isValid(id);
 
