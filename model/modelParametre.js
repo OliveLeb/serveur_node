@@ -20,7 +20,7 @@ const schema = Joi.object({
     .required(),
   texteIntro: Joi.string()
     .min(20)
-    .max(300)
+    .max(2000)
     .required(),
   titreAccueil: Joi.string()
     .min(5)
