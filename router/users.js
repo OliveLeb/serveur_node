@@ -44,16 +44,7 @@ routerUsers.post('/', [verify, admin], async function(req, res) {
                 email: req.body.email,
                 role: req.body.role,
                 estActif: req.body.estActif
-              }); /*
-            user.save().then(() => {
-              const token = user.generateAuthenToken();
-
-              const result = _.pick(user, ['_id', 'role']);
-              res
-                .header('auth-token', token)
-                .header('access-control-expose-headers', 'auth-token')
-                .send(result);
-            });*/
+              });
               user.save();
               res.send(user);
             });

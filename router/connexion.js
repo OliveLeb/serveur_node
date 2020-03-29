@@ -16,13 +16,16 @@ router.post('/', async (req, res) => {
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword) res.status(400).send('Mot de passe invalide');
 
-  //res.send('Logged in');
   //creation d'un token
   // token_secret dans .env
   const utilisateur = { _id: user._id, role: user.role };
   const token = jwt.sign(utilisateur, process.env.TOKEN_SECRET);
-  res.header('auth-token', token).send(token);
-  //res.send(user.role);
+  res
+    .header('auth-token', token)
+    .header('access-control-expose-headers', 'auth-token')
+    .send(token);
+  //res.cookie('auth-token', token, { httpOnly: true, secure: true });
+
   /*
   const token = user.generateAuthenToken();
   resp
