@@ -64,7 +64,7 @@ const validationConnexion = async data => {
     password: PasswordComplexity(complexityOptions).required(),
     email: Joi.string().email({ tlds: { allow: true } }),
     identifiant: Joi.string()
-      .min(5)
+      .min(3)
       .max(50),
     role: Joi.string().valid('admin', 'redac', 'user', 'visitor')
   });

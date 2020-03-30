@@ -1,9 +1,11 @@
-const router = require('express').Router();
+const express = require('express');
 const { User, validationConnexion } = require('../model/modelUser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-router.post('/', async (req, res) => {
+const routerConnexion = express.Router();
+
+routerConnexion.post('/', async (req, res) => {
   const { error } = validationConnexion(req.body);
 
   if (error) return res.status(400).send(error.details[0].message);
@@ -20,10 +22,7 @@ router.post('/', async (req, res) => {
   // token_secret dans .env
   const utilisateur = { _id: user._id, role: user.role };
   const token = jwt.sign(utilisateur, process.env.TOKEN_SECRET);
-  res
-    .header('auth-token', token)
-    .header('access-control-expose-headers', 'auth-token')
-    .send(token);
+  res.header('auth-token', token).send(token);
   //res.cookie('auth-token', token, { httpOnly: true, secure: true });
 
   /*
@@ -37,4 +36,4 @@ router.post('/', async (req, res) => {
     });*/
 });
 
-module.exports = router;
+module.exports = routerConnexion;
